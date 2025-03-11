@@ -1,0 +1,45 @@
+Cinema Ticket Service
+
+TicketServiceImpl Overview
+The TicketServiceImpl class is designed to handle ticket purchases while ensuring validation,
+ cost calculation, and seamless interaction with external services for payment and seat reservations.
+
+Key Methods
+purchaseTickets: This method validates the account ID and ticket requests,
+ensures compliance with purchase rules (such as the maximum number of tickets),calculates the total cost,
+processes the payment, and reserves the appropriate number of seats.
+validateTicketRequests: Validates that ticket requests are reasonable, ensuring no more than 25 tickets are purchased,
+ and enforces the requirement that at least one adult must be included when children or infant tickets are requested.
+calculateTotalAmount: Calculates the total amount to be paid based on ticket type and quantity, applying different prices for infants,
+ children, and adults.
+calculateSeatsToAllocate: Determines how many seats need to be reserved, excluding infant tickets (as infants do not require seats).
+
+
+Why This Works
+This approach ensures that ticket purchases are processed in compliance with the business rules while
+ making efficient use of external services for payment and seat reservation. By validating inputs,
+ the class minimizes errors, ensuring a smooth user experience and reducing the likelihood of failed transactions.
+
+
+ TicketServiceImplTest Overview
+ This test class validates the functionality of the TicketServiceImpl class. It uses the JUnit 5 framework along with Mockito to mock the external
+ dependencies (TicketPaymentService and SeatReservationService) and ensure the core logic of ticket purchase, validation,
+ and seat allocation works correctly.
+
+ Key Tests
+ testPurchaseTickets_ValidRequest: Verifies that when valid tickets are requested, the correct payment is made and the seats are reserved.
+ testPurchaseTickets_InvalidAccountId: Ensures that an InvalidPurchaseException is thrown when the account ID is invalid.
+ testPurchaseTickets_ExceedMaxTickets: Verifies that attempting to purchase more than 25 tickets triggers an exception.
+ testPurchaseTickets_ChildOrInfantWithoutAdult: Ensures that if child or infant tickets are requested without an adult ticket, an exception is thrown.
+ testCalculateTotalAmount: Tests that the total amount is correctly calculated based on the ticket types and quantities.
+ testCalculateSeatsToAllocate: Verifies that the correct number of seats is allocated, excluding infants.
+
+ Why This Works
+ Each test case focuses on a specific aspect of the TicketServiceImpl functionality. This provides clear validation
+ for both expected behavior (successful ticket purchase) and error scenarios (invalid input, exceeding limits).
+ The mock dependencies ensure that the core logic is isolated and easily tested without external service interaction.
+
+
+
+
+
